@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACK'una-Matata</title>
+    <meta name="description"
+        content="Get ready for 12 hours coding and developing real life applications on this Techspardha'17 " />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:title" content="HackShetra | Techspardha 2017" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://techspardha.org/hackshetra" />
+    <meta property="og:description"
+        content="Get ready for 24 hours coding and developing real life applications on this Techspardha'17" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content="http://techspardha.org/hackshetra" />
+    <meta name="twitter:title" content="SYNSARA | Hackathon 2019" />
+    <meta name="twitter:description"
+        content="Get ready for 24 hours coding and developing real life applications on this Techspardha'17 " />
+    <meta itemprop="name" content="HackShetra | Techspardha 2017">
+    <meta itemprop="description"
+        content="Get ready for 12 hours coding and developing real life applications on this Techspardha'17 ">
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/background/home_background.css" />
+    <link rel="stylesheet" type="text/css" href="css/title/title.css" />
+    <link rel="stylesheet" type="text/css" href="css/contact_us.css" />
+    <link rel="stylesheet" type="text/css" href="css/laptop.css" />
+    <link rel="stylesheet" type="text/css" href="css/app_develop.css" />
+    <script>
+        function redirect() {
+            window.location = "http://tiny.cc/dx7kbz";
+        }
+    </script>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+            /* The image used */
+            /* background-image: url("./js/background/test.jpg"); */
+            background-image: url("https://media.giphy.com/media/2bIP0gHS5cLhS/giphy.gif");
+
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+
+        }
+    </style>
+    <style>
+        /* Paste this css to your style sheet file or under head tag */
+        /* This only works with JavaScript, 
+        if it's not present, don't show loader */
+        .no-js #loader {
+            display: none;
+        }
+
+        .js #loader {
+            display: block;
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
+
+        .se-pre-con {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url(https://media.giphy.com/media/fiJRJ6BlNrKuI/giphy.gif) center no-repeat #ffffff;
+            /* background: url(http://smallenvelop.com/wp-content/uploads/2014/08/Preloader_11.gif) center no-repeat #ffffff; */
+            /* background: url(https://media.giphy.com/media/YQitE4YNQNahy/giphy.gif) center no-repeat #fff; */
+            /* background: url(https://media.giphy.com/media/UqxVRm1IaaIGk/giphy.gif) center no-repeat #fff; */
+            /* background: url(https://media.giphy.com/media/4lZaiAxj6fjwI/giphy.gif) center no-repeat #fff; */
+        }
+    </style>
+    <style>
+        .loader {
+            left: 50%;
+            top: 50%;
+            border: 16px solid #f3f3f3;
+            /* Light grey */
+            border-top: 16px solid #00ff00;
+            /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg">
+
+        <script>
+            //paste this code under the head tag or in a separate js file.
+            // Wait for window load
+            $(window).load(function () {
+                // Animate loader off screen
+                $(".se-pre-con").fadeOut("slow");
+            });
+        </script>
+
+        <!-- Preloader starts here !! xD -->
+        <div class="se-pre-con"></div>
+        <!-- <div class="loader"></div> -->
+
+        <!-- header section -->
+        <header class="page_header header">
+            <div class="nav-list" id="nav_main">
+                <nav>
+                    <a id="home_link" class="nav-list_item active-link" href="#home-section">Home</a>
+                    <a id="about_link" class="nav-list_item" href="#about-section">About</a>
+                    <a id="faq_link" class="nav-list_item" href="#faq-section">FAQ</a>
+                    <a id="sponsor_link" class="nav-list_item" href="#sponsor-section">Sponsors</a>
+                    <a id="contact_link" class="nav-list_item" href="#contact-section">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <section id="home-section" class="home-section home section">
+            <h1>SYNSARA '19</h1>
+            <div class="titleWrapper">
+                <h1 class="first">HACK-una-Matata</h1>
+                <h1 class="second">Synsara&nbsp;2k19</h1>
+            </div>
+            <div id="container" class="container">
+                <canvas id="demo-canvas" class="demo-canvas"></canvas>
+            </div>
+            <div class="construction-demo">
+                <canvas id="c" class="contruction-canvas"></canvas>
+            </div>
+            <div class="typing_effect">
+                <h1>Get ready to
+                    <span class="txt-rotate" data-period="1000"
+                        data-rotate='[ "hack.", "innovate.", "develop.", "build ideas.", "solve real life problems." ]'></span>
+                </h1>
+            </div>
+            <div id="info-section">
+                <br>
+                <span>19 - 20 September 2019</span>
+                <span><a href="http://sairam.edu.in/">SSEC Chennai, India</a></span>
+                <span><a target="_blank" href="http://synsara2k19.in/">SYNSARA 2K19</a></span>
+            </div>
+            <div id="button-section">
+                <button onclick="redirect()">Register Here</button>
+            </div>
+        </section>
+
+        <section id="about-section" class="about-section about section bg">
+            <div id='about-description'>
+                <h1>
+                    HackShetra is a <span>24 hour Hackathon</span> organized by the students of <a target="_blank"
+                        href="http://www.nitkkr.ac.in/">National Institute of Technology, Kurukshetra</a>
+                    where students from different college come together and <span>hack</span> on hardware and software
+                    to
+                    give life to their ideas and <span>solves real life problems</span>.<br /><br />
+                    Get ready for :<br /><br />
+                    <span>24 hours</span> of continuous coding<br />
+                    Building and Breaking Stuff :P<br />
+                    Solving <span>Real life problems</span> !<br />
+                    Unlimited <span>Swags</span> :)<br />
+                </h1>
+            </div>
+            <div id="code-section">
+                <h1>About</h1>
+                <div class="wrap">
+                    <div class="comp">
+                        <div class="monitor">
+                            <div class="mid">
+                                <div class="site">
+                                    <div class="topbar">
+                                        <div class="cerrar">
+                                            <div class="circl"></div>
+                                            <div class="circl"></div>
+                                            <div class="circl"></div>
+                                        </div>
+                                    </div>
+                                    <div class="inhead">
+                                        <div class="mid">
+                                            <div class="item"></div>
+                                        </div>
+                                        <div class="mid txr">
+                                            <div class="item"></div>
+                                            <div class="item"></div>
+                                            <div class="item"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                    <div class="inslid">
+
+                                    </div>
+                                    <div class="incont">
+                                        <div class="item"></div>
+                                        <div class="item"></div>
+                                        <div class="item"></div>
+                                        <div class="item"></div>
+                                        <div class="wid">
+                                            <div class="itwid">
+                                                <div>
+                                                    <div class="contfoot"></div>
+                                                </div>
+                                            </div>
+                                            <div class="itwid">
+                                                <div>
+                                                    <div class="contfoot"></div>
+                                                </div>
+                                            </div>
+                                            <div class="itwid">
+                                                <div>
+                                                    <div class="contfoot"></div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="infoot">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mid codigo">
+                                <div class="line">
+                                    <div class="item var"></div>
+                                    <div class="item cont"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line">
+                                    <div class="item min var"></div>
+                                    <div class="item min fun"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line">
+                                    <div class="item min var"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line">
+                                    <div class="item var"></div>
+                                    <div class="item atr"></div>
+                                    <div class="item cont"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab1">
+                                    <div class="item min atr"></div>
+                                    <div class="item lrg fun"></div>
+                                    <div class="item min fun"></div>
+                                    <div class="item lrg cont"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab1">
+                                    <div class="item lrg atr"></div>
+                                    <div class="item min fun"></div>
+                                    <div class="item min cont"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab1">
+                                    <div class="item atr"></div>
+                                    <div class="item min fun"></div>
+                                    <div class="item atr"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab1">
+                                    <div class="item min atr"></div>
+                                    <div class="item min cont"></div>
+                                    <div class="item lrg atr"></div>
+                                    <div class="item  fun"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab1">
+                                    <div class="item min atr"></div>
+                                    <div class="item lrg fun"></div>
+                                    <div class="item lrg cont"></div>
+                                    <div class="item min fun"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab1">
+                                    <div class="item min var"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab1">
+                                    <div class="item min var"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab2">
+                                    <div class="item min var"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab2">
+                                    <div class="item min atr"></div>
+                                    <div class="item min fun"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab3">
+                                    <div class="item min atr"></div>
+                                    <div class="item min fun"></div>
+                                    <div class="item lrg fun"></div>
+                                    <div class="item lrg cont"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab3">
+                                    <div class="item min atr"></div>
+                                    <div class="item min fun"></div>
+                                    <div class="item lrg atr"></div>
+                                    <div class="item lrg cont"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab4">
+                                    <div class="item min fun"></div>
+                                    <div class="item lrg atr"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab1">
+                                    <div class="item atr"></div>
+                                    <div class="item var"></div>
+                                    <div class="item cont"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab3">
+                                    <div class="item min var"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line tab4">
+                                    <div class="item min atr"></div>
+                                    <div class="item min fun"></div>
+                                    <div class="item lrg atr"></div>
+                                    <div class="item lrg cont"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="line">
+                                    <div class="item min var"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="base">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section bg" id="app-section">
+            <div id="app-develop-section">
+                <div class="wrapper">
+                    <div id="morph">
+                        <div class="screen"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="app-develop-description">
+                <h1>
+                    <span>Develop anything</span> you like!<br />
+                    From mobile app to apps for PC , build app for <span>any platform</span> you want !<br />
+                    You can <span>Hack on hardware</span> such as arduino, Rasberry PI etc.
+                </h1>
+            </div>
+        </section>
+
+        <section id="faq-section" class="faq-section faq section bg">
+            <h1>FAQ</h1>
+            <div class="qCard" id="q1" onclick="answer(1)" onmouseout="question(1)">
+                What is a Hackathon ?
+            </div>
+            <div class="qCard" id="q2" onclick="answer(2)" onmouseout="question(2)">
+                Who can apply?
+            </div>
+            <div class="qCard" id="q3" onclick="answer(3)" onmouseout="question(3)">
+                What should I bring?
+            </div>
+            <div class="qCard" id="q4" onclick="answer(4)" onmouseout="question(4)">
+                What do people normally make?
+            </div>
+            <div class="qCard" id="q5" onclick="answer(5)" onmouseout="question(5)">
+                How and when will I hear back?
+            </div>
+            <div class="qCard" id="q6" onclick="answer(6)" onmouseout="question(6)">
+                What are you looking for in an application?
+            </div>
+            <div class="qCard" id="q7" onclick="answer(7)" onmouseout="question(7)">
+                How much does it cost to attend?
+            </div>
+            <div class="qCard" id="q8" onclick="answer(8)" onmouseout="question(8)">
+                Can we apply as a team?
+            </div>
+        </section>
+
+        <section id="sponsor-section" class="sponsor-section sponsor section">
+            <h1>Sponsors</h1>
+            <div class="sponsor-logo-section">
+                <div>
+                    <img src="assets/logos/Githublogo.png">
+                    <img src="assets/logos/HElogo.png">
+                </div>
+                <div>
+                    <img src="assets/logos/jetbrains.png">
+                    <img src="assets/logos/temboologo.png">
+                    <img src="assets/logos/exotellogo.png">
+                </div>
+                <div>
+                    <img src="assets/logos/Dockerlogo.png">
+                    <img src="assets/logos/kloudness.png">
+                </div>
+                <div>
+                    <img src="assets/logos/logobig.png">
+                    <img src="assets/logos/Npmlogo.png">
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-section" class="contact-section section">
+            <div id="contact-left-section">
+                <h1 class="heading">Contact Us</h1>
+                <svg class="locationSVG" viewBox="200 175 400 300" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <clipPath id="boxMask">
+                            <rect x="290" y="190" class="boxMask" width="220" height="220" />
+                        </clipPath>
+                    </defs>
+                    <g clip-path="url(#boxMask)">
+                        <path class="pin" fill-rule="evenodd" clip-rule="evenodd"
+                            d="M400,289c-11,0-20,9-20,20c0,15.4,17.6,42,18.3,43.1c0.4,0.6,1,0.9,1.7,0.9c0.7,0,1.3-0.3,1.7-0.9
+  c0.7-1.1,18.3-27.7,18.3-43.1C420,298,411,289,400,289z M400,301c-4.4,0-8,3.6-8,8s3.6,8,8,8c4.4,0,8-3.6,8-8S404.4,301,400,301z" fill="#FF5722" />
+                        <g class="track">
+                            <line x1="220.5" y1="354.5" x2="820.5" y2="354.5" fill="none" stroke="#EEEEEE"
+                                stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" />
+                            <circle cx="461" cy="354" r="5" fill="#EEEEEE" />
+                            <circle cx="701" cy="354" r="5" fill="#EEEEEE" />
+                            <circle class="boopX" cx="581" cy="354" r="5" fill="#FF5722" />
+                            <circle class="boop" cx="581" cy="354" r="1" fill="none" stroke-width="8"
+                                stroke="#FF5722" />
+                            <circle class="boop" cx="821" cy="354" r="5" fill="#FF5722" />
+                            <circle class="boop" cx="341" cy="354" r="5" fill="#FF5722" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <div id="contact-right-section">
+                <section id="email-section" class="wipe-right mini-section email-section">
+                    <span><u>Our email address</u></span><br /><br />
+                    <span><a href="mailto:hackshetra.nitkkr@gmail.com">hackshetra.nitkkr@gmail.com</a></span>
+                </section>
+                <section class="wipe-down mini-section coordinator-section">
+                    <span><u>Contact our Coordinators</u></span><br /><br />
+                    <span>Abhishek Goswami : +91-9991016038</span><br />
+                    <span>Jatin Miglani: +91-9034439043</span><br />
+                    <span>Abhinandan Sharma: +91-9996999065</span>
+                </section>
+                <section class="wipe-left mini-section location-section">
+                    <span>
+                        <u>Directions to reach us</u> <br /><br /><br />
+                        National Institute of Technology, Kurukshetra<br />
+                        Thanesar, Haryana<br />
+                        136119
+                    </span>
+                </section>
+            </div>
+        </section>
+        <footer class="footer">
+            <h1>brought to you with <span>love</span> by the team of &nbsp;&nbsp;<a target="_blank"
+                    href="https://cse.sairam.edu.in/">CSE SSEC</a> </h1>
+        </footer>
+        <!-- script -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/background/home_background.js"></script>
+        <script src="js/background/construction_demo.js"></script>
+        <script src="js/background/typing_effect.js"></script>
+        <script src="js/title/title.js"></script>
+        <script src="js/FAQ.js"></script>
+        <script src="js/about/index.js"></script>
+</body>
+</div>
+</body>
+
+</html>

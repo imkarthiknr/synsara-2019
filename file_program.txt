@@ -1,0 +1,23 @@
+<div id="fileupload" hidden >
+  <form id="hackathon" action="uploadfile.php" method="post" enctype="multipart/form-data">  
+    Select your Abstract File in *.docx format: <br /> <input type="file" name="fileToUpload"/>  
+    <input type="submit" value="Upload Hackathon Abstract" name="submit"/>  
+  </form> 
+</div>
+
+
+  function checkHack(form) {
+	 //alert("Error: inside!");
+	 var div = document.getElementById("fileupload");
+     if (div.style.display !== "block") {
+        div.style.display = "block";
+		document.getElementById('techblock').style.display = 'none';
+		document.getElementById('nontechblock').style.display = 'none';
+     } else {
+        div.style.display = "none";
+		document.getElementById('techblock').style.display = 'block';
+		document.getElementById('nontechblock').style.display = 'block';
+     }
+  }
+  
+
