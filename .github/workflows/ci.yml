@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv sync --frozen
+      - run: uv run pytest
+
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: synsara
+          POSTGRES_USER: synsara
+          POSTGRES_PASSWORD: synsara
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U synsara" --health-interval 5s
+          --health-timeout 3s --health-retries 10
+    env:
+      DATABASE_URL: postgresql+psycopg://synsara:synsara@localhost:5432/synsara
+      TEST_DATABASE_URL: postgresql+psycopg://synsara:synsara@localhost:5432/synsara
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      - name: Migrations apply and match the models
+        run: |
+          uv run alembic upgrade head
+          uv run alembic check
+          uv run alembic downgrade base
+      - run: uv run pytest
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v5
+      - name: Build and start the stack
+        run: docker compose up --build --detach --wait --wait-timeout 120
+      - name: Smoke test
+        run: |
+          set -euo pipefail
+          health=$(curl -fsS http://localhost:8000/health)
+          echo "$health"
+          [ "$health" = '{"status":"ok"}' ]
+          home=$(curl -fsS http://localhost:8000/)
+          echo "$home" | grep -c "Code Fest"
+          code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/admin)
+          [ "$code" = "303" ]
+          curl -fsS -o /dev/null http://localhost:8000/static/fonts/exo2-regular.woff2
+      - name: Register through the form
+        run: |
+          set -euo pipefail
+          jar=$(mktemp)
+          page=$(curl -fsS -c "$jar" http://localhost:8000/register)
+          token=$(printf '%s' "$page" | sed -n 's/.*name="csrf" value="\([^"]*\)".*/\1/p' | head -n1)
+          done=$(curl -fsS -b "$jar" -c "$jar" -L http://localhost:8000/register \
+            --data-urlencode "csrf=$token" --data-urlencode "name=CI Tester" \
+            --data-urlencode "college=Example Institute" --data-urlencode "department=CSE" \
+            --data-urlencode "year=2" --data-urlencode "email=ci@example.com" \
+            --data-urlencode "mobile=9876543210" --data-urlencode "technical=code-fest")
+          printf '%s' "$done" | grep -c "SYN19-0001"
+      - name: Logs
+        if: always()
+        run: docker compose logs
+      - run: docker compose down --volumes
+        if: always()

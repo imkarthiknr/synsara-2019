@@ -1,0 +1,37 @@
+# SYNSARA with PostgreSQL. Usage: docker compose up --build, then open http://localhost:8000
+# Override the secrets below with a .env file (see .env.example) before running this anywhere public.
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: synsara
+      POSTGRES_USER: synsara
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-synsara-local}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U synsara -d synsara"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  web:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://synsara:${POSTGRES_PASSWORD:-synsara-local}@db:5432/synsara
+      SECRET_KEY: ${SECRET_KEY:-local-docker-secret-change-me}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-synsara-admin}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      REGISTRATION_OPEN: ${REGISTRATION_OPEN:-true}
+    ports:
+      - "8000:8000"
+    volumes:
+      - uploads:/app/data/uploads
+
+volumes:
+  db-data:
+  uploads:
