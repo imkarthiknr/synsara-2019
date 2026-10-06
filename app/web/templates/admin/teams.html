@@ -1,0 +1,26 @@
+{% extends "admin/layout.html" %}
+{% set active = 'teams' %}
+{% block title %}Hackathon teams · {{ c.edition.title }}{% endblock %}
+{% block admin %}
+<div class="admin-head"><h1>{{ c.hackathon.name }} teams <span class="muted">({{ teams | length }})</span></h1></div>
+<div class="panel table-wrap">
+  <table class="table">
+    <thead><tr><th>ID</th><th>Team</th><th>Project</th><th>Leader</th><th class="num">Size</th><th>Needs</th><th></th></tr></thead>
+    <tbody>
+    {% for t in teams %}
+      <tr>
+        <td class="mono">{{ t.code }}</td>
+        <td><a href="/admin/teams/{{ t.id }}">{{ t.team_name }}</a></td>
+        <td>{{ t.project_title }} <span class="muted">· {{ t.domain }}</span></td>
+        <td>{{ t.leader_name }}<br><span class="muted">{{ t.college }}</span></td>
+        <td class="num">{{ t.members | length + 1 }}</td>
+        <td>{% if t.needs_technical_help %}<span class="chip">Tech help</span>{% endif %}{% if t.needs_accommodation %}<span class="chip">Stay</span>{% endif %}</td>
+        <td><a href="/admin/teams/{{ t.id }}/abstract">Abstract</a></td>
+      </tr>
+    {% else %}
+      <tr><td colspan="7" class="muted empty">No teams yet.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

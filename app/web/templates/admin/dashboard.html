@@ -1,0 +1,47 @@
+{% extends "admin/layout.html" %}
+{% set active = 'dash' %}
+{% block title %}Dashboard · {{ c.edition.title }}{% endblock %}
+{% block admin %}
+<div class="admin-head">
+  <h1>Dashboard</h1>
+  <div class="row">
+    <a class="btn" href="/admin/export.xlsx">Download Excel (all)</a>
+    <a class="btn ghost" href="/admin/participants.csv">CSV</a>
+  </div>
+</div>
+<dl class="stats boxed">
+  <div><dt>Participants</dt><dd>{{ participants | length }}</dd></div>
+  <div><dt>Event entries</dt><dd>{{ counts.values() | sum }}</dd></div>
+  <div><dt>Hackathon teams</dt><dd>{{ teams | length }}</dd></div>
+  <div><dt>Hackathon people</dt><dd>{{ teams | map(attribute='members') | map('length') | sum + teams | length }}</dd></div>
+</dl>
+
+<div class="two-col">
+  <section class="panel">
+    <h2>Entries by event</h2>
+    {% set top = (counts.values() | max) if counts else 1 %}
+    <table class="table">
+      <thead><tr><th>Event</th><th class="num">Entries</th><th></th></tr></thead>
+      <tbody>
+      {% for ev in events %}
+        {% set n = counts.get(ev.slug, 0) %}
+        <tr>
+          <td><a href="/admin/participants?event={{ ev.slug }}">{{ ev.name }}</a>
+            <meter class="count-meter" min="0" max="{{ top or 1 }}" value="{{ n }}" aria-hidden="true"></meter></td>
+          <td class="num">{{ n }}</td>
+          <td><a class="small" href="/admin/export/{{ ev.slug }}.xlsx" aria-label="Download {{ ev.name }} as Excel">.xlsx</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <section class="panel">
+    <h2>Latest registrations</h2>
+    {% if recent %}
+      <ul class="plain">
+        {% for p in recent %}<li><span class="mono">{{ p.code }}</span> {{ p.name }} <span class="muted">· {{ p.college }}</span></li>{% endfor %}
+      </ul>
+    {% else %}<p class="muted">No registrations yet.</p>{% endif %}
+  </section>
+</div>
+{% endblock %}

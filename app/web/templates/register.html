@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% from "partials/forms.html" import field, select, form_errors with context %}
+{% block title %}Register · {{ c.edition.title }}{% endblock %}
+{% block content %}
+{% set years = [(1, 'I'), (2, 'II'), (3, 'III'), (4, 'IV'), (5, 'V')] %}
+<div class="wrap page narrow">
+  <h1>Event registration</h1>
+  <p class="lead">One registration per person. Choose up to {{ c.rules.max_technical }} technical and {{ c.rules.max_non_technical }} non-technical events.</p>
+  <p class="note">Registering a hackathon team? Use the <a href="/hackathon/register">{{ c.hackathon.name }} form</a> instead. Hackathon teams can't take part in other events.</p>
+
+  <form class="panel form" method="post" action="/register" novalidate data-limit-form>
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    {{ form_errors(errors) }}
+    <fieldset>
+      <legend>Your details</legend>
+      <div class="grid">
+        {{ field("name", "Full name", values, errors, attrs='required autocomplete="name"') }}
+        {{ field("college", "College", values, errors, attrs='required autocomplete="organization"') }}
+        {{ select("department", "Department", dept_options, values, errors) }}
+        {{ select("year", "Year of study", years, values, errors) }}
+        {{ field("email", "E-mail", values, errors, type="email", attrs='required autocomplete="email"') }}
+        {{ field("mobile", "Mobile number", values, errors, type="tel", hint="10 digits, starting with 6–9.", attrs='required inputmode="numeric" autocomplete="tel-national" maxlength="14"') }}
+      </div>
+    </fieldset>
+
+    <fieldset class="events{% if errors.technical %} invalid{% endif %}" data-limit="{{ c.rules.max_technical }}" aria-describedby="tech-help">
+      <legend>Technical events <span class="muted">(up to {{ c.rules.max_technical }})</span></legend>
+      <p class="hint" id="tech-help" data-limit-status></p>
+      {% for ev in technical %}
+        <label class="choice">
+          <input type="checkbox" name="technical" value="{{ ev.slug }}" {% if ev.slug in values.technical %}checked{% endif %}>
+          <span><strong>{{ ev.name }}</strong><span class="muted">{{ ev.team }}</span></span>
+        </label>
+      {% endfor %}
+      {% if errors.technical %}<p class="error">{{ errors.technical }}</p>{% endif %}
+    </fieldset>
+
+    <fieldset class="events{% if errors.non_technical %} invalid{% endif %}" data-limit="{{ c.rules.max_non_technical }}" aria-describedby="nontech-help">
+      <legend>Non-technical events <span class="muted">(up to {{ c.rules.max_non_technical }})</span></legend>
+      <p class="hint" id="nontech-help" data-limit-status></p>
+      {% for ev in non_technical %}
+        <label class="choice">
+          <input type="checkbox" name="non_technical" value="{{ ev.slug }}" {% if ev.slug in values.non_technical %}checked{% endif %}>
+          <span><strong>{{ ev.name }}</strong><span class="muted">{{ ev.team }}</span></span>
+        </label>
+      {% endfor %}
+      {% if errors.non_technical %}<p class="error">{{ errors.non_technical }}</p>{% endif %}
+    </fieldset>
+    {% if errors.events %}<p class="error" role="alert">{{ errors.events }}</p>{% endif %}
+
+    <button type="submit" class="btn">Register</button>
+  </form>
+</div>
+{% endblock %}

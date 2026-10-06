@@ -1,0 +1,13 @@
+{% macro event_card(e, href) -%}
+<a class="event-card" href="{{ href }}">
+  <span class="logo">
+    {% if e.logo %}<img src="{{ url_for('static', path='img/' ~ e.logo) }}" alt="" loading="lazy" width="96" height="96">
+    {% else %}<span class="glyph" aria-hidden="true">{{ e.name[:1] }}</span>{% endif %}
+  </span>
+  <span class="body">
+    <strong>{{ e.name }}</strong>
+    <span class="muted">{{ e.teaser }}</span>
+  </span>
+  <span class="arrow" aria-hidden="true">→</span>
+</a>
+{%- endmacro %}

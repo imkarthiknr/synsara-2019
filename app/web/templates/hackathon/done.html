@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Team registered · {{ c.hackathon.name }}{% endblock %}
+{% block content %}
+<div class="wrap page narrow center">
+  <div class="done">
+    <p class="kicker" data-scramble="HAKUNA MATATA!">HAKUNA MATATA!</p>
+    <h1>Team {{ team.team_name }} is registered.</h1>
+    <p class="reg-id">Team ID <strong class="mono">{{ team.code }}</strong></p>
+    <div class="panel left">
+      <dl class="kv">
+        <div><dt>Project</dt><dd>{{ team.project_title }} ({{ team.domain }})</dd></div>
+        <div><dt>Team</dt><dd>{{ team.leader_name }} (lead){% for m in team.members %}, {{ m.name }}{% endfor %}</dd></div>
+        <div><dt>Abstract</dt><dd>{{ team.abstract_filename }}</dd></div>
+      </dl>
+      <p class="muted">Shortlisted teams will hear from us at {{ team.email }}.</p>
+    </div>
+    <a class="btn ghost" href="/">Back to the main page</a>
+  </div>
+</div>
+{% endblock %}

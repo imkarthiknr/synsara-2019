@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% from "partials/forms.html" import field, select, form_errors with context %}
+{% block title %}Register a team · {{ c.hackathon.name }}{% endblock %}
+{% block content %}
+{% set years = [(1, 'I'), (2, 'II'), (3, 'III'), (4, 'IV'), (5, 'V')] %}
+<div class="wrap page narrow">
+  <a href="/hackathon" class="back">← {{ c.hackathon.name }}</a>
+  <h1>{{ c.hackathon.name }} registration</h1>
+  <p class="lead">Teams of {{ c.rules.hackathon_team_min }}–{{ c.rules.hackathon_team_max }}, including the leader. The leader's details are used for all communication.</p>
+
+  <form class="panel form" method="post" action="/hackathon/register" enctype="multipart/form-data" novalidate>
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    {{ form_errors(errors) }}
+    <fieldset>
+      <legend>Team</legend>
+      <div class="grid">
+        {{ field("team_name", "Team name", values, errors, attrs='required') }}
+        {{ field("leader_name", "Team leader", values, errors, attrs='required autocomplete="name"') }}
+        {{ field("college", "College", values, errors, attrs='required autocomplete="organization"') }}
+        {{ select("department", "Department", dept_options, values, errors) }}
+        {{ select("year", "Year of study", years, values, errors) }}
+        {{ field("email", "Leader's e-mail", values, errors, type="email", attrs='required autocomplete="email"') }}
+        {{ field("mobile", "Leader's mobile", values, errors, type="tel", hint="10 digits, starting with 6–9.", attrs='required inputmode="numeric" maxlength="14"') }}
+      </div>
+    </fieldset>
+
+    <fieldset class="{% if errors.members %}invalid{% endif %}">
+      <legend>Other members <span class="muted">({{ c.rules.hackathon_team_min - 1 }}–{{ c.rules.hackathon_team_max - 1 }})</span></legend>
+      <div class="grid">
+        {% for i in range(c.rules.hackathon_team_max - 1) %}
+          <div class="field">
+            <label for="member{{ i + 1 }}">Member {{ i + 2 }}{% if i >= c.rules.hackathon_team_min - 1 %} <span class="muted">(optional)</span>{% endif %}</label>
+            <input id="member{{ i + 1 }}" name="members" value="{{ values.members[i] if values.members | length > i else '' }}" autocomplete="off">
+          </div>
+        {% endfor %}
+      </div>
+      {% if errors.members %}<p class="error">{{ errors.members }}</p>{% endif %}
+    </fieldset>
+
+    <fieldset>
+      <legend>Project</legend>
+      <div class="grid">
+        {{ field("project_title", "Project title", values, errors, attrs='required') }}
+        {{ field("domain", "Domain", values, errors, hint="E.g. healthcare, IoT, education, fintech.", attrs='required') }}
+      </div>
+      <div class="field{% if errors.abstract %} invalid{% endif %}">
+        <label for="abstract">Abstract</label>
+        <input id="abstract" name="abstract" type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required
+          {% if errors.abstract %}aria-invalid="true" aria-describedby="abstract-error"{% else %}aria-describedby="abstract-hint"{% endif %}>
+        {% if errors.abstract %}<p class="error" id="abstract-error">{{ errors.abstract }}</p>
+        {% else %}<p class="hint" id="abstract-hint">PDF or DOCX, up to {{ settings.max_upload_mb }} MB. Use the <a href="{{ url_for('static', path=c.hackathon.abstract_template) }}" download>abstract template</a>.</p>{% endif %}
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>A few more things</legend>
+      <label class="check"><input type="checkbox" name="needs_technical_help" value="yes" {% if values.needs_technical_help %}checked{% endif %}> We'd like technical assistance</label>
+      <label class="check"><input type="checkbox" name="needs_accommodation" value="yes" {% if values.needs_accommodation %}checked{% endif %}> We need accommodation</label>
+      {{ select("heard_from", "How did you hear about the hackathon?", heard_options, values, errors) }}
+    </fieldset>
+
+    <button type="submit" class="btn">Register team</button>
+  </form>
+</div>
+{% endblock %}

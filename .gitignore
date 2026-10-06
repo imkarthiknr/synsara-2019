@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Local data, uploads & secrets
+*.db
+*.db-journal
+data/
+uploads/
+.env
+.env.*
+!.env.example
+
+# Playwright
+test-results/
+playwright-report/
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json

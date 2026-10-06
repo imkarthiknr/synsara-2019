@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% from "partials/event_card.html" import event_card with context %}
+{% block body_class %}home{% endblock %}
+{% block content %}
+{% set e = c.edition %}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <p class="kicker" data-scramble="WELCOMES YOU">WELCOMES YOU</p>
+    <h1 id="hero-title" class="wordmark"><span class="syn">SYN</span><span class="sara">SARA</span></h1>
+    <p class="year">{{ e.year_label }}</p>
+    <p class="tagline">{{ e.tagline }}</p>
+    <p class="when">
+      <time datetime="{{ e.starts_on.isoformat() }}">{{ e.starts_on.strftime('%-d') }}–{{ e.ends_on.strftime('%-d %B %Y') }}</time>
+      · {{ e.institution }}, {{ e.city }}
+    </p>
+    <div class="countdown" data-countdown="{{ e.starts_on.isoformat() }}T09:00:00+05:30" data-ends="{{ e.ends_on.isoformat() }}T18:00:00+05:30" aria-live="polite"></div>
+    <div class="actions">
+      <a class="btn" href="/register">Register for events</a>
+      <a class="btn ghost" href="/hackathon">{{ c.hackathon.name }}</a>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <div class="wrap about">
+    <div>
+      <h2 class="section-title">About</h2>
+      <p class="lead">{{ e.about }}</p>
+    </div>
+    <dl class="stats">
+      <div><dt>Events</dt><dd>{{ c.event_count }}</dd></div>
+      <div><dt>Days</dt><dd>{{ (e.ends_on - e.starts_on).days + 1 }}</dd></div>
+      <div><dt>Cash prizes</dt><dd>₹{{ e.prize_pool_inr | inr }}</dd></div>
+      {% if e.expected_participants %}<div><dt>Participants</dt><dd>{{ e.expected_participants }}+</dd></div>{% endif %}
+    </dl>
+  </div>
+</section>
+
+<section id="events" class="section">
+  <div class="wrap">
+    <h2 class="section-title">Events</h2>
+    <p class="muted rules-note">
+      Take part in up to {{ c.rules.max_technical }} technical and {{ c.rules.max_non_technical }} non-technical events.
+      {% if c.rules.hackathon_is_exclusive %}Hackathon teams take part in the hackathon only.{% endif %}
+    </p>
+
+    <h3 class="group-title">Technical</h3>
+    <div class="cards">
+      {% for ev in technical %}{{ event_card(ev, '/events/' ~ ev.slug) }}{% endfor %}
+    </div>
+
+    <h3 class="group-title">Non-technical</h3>
+    <div class="cards">
+      {% for ev in non_technical %}{{ event_card(ev, '/events/' ~ ev.slug) }}{% endfor %}
+    </div>
+
+    <h3 class="group-title">Hackathon &amp; workshop</h3>
+    <div class="cards">
+      {{ event_card(c.hackathon, '/hackathon') }}
+      {% if c.workshop %}
+      <div class="event-card static">
+        <span class="logo"><span class="glyph" aria-hidden="true">W</span></span>
+        <span class="body"><strong>{{ c.workshop.name }}</strong><span class="muted">{{ c.workshop.teaser }}</span></span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section id="register" class="section cta">
+  <div class="wrap cta-inner">
+    <h2 class="section-title">Register</h2>
+    <div class="cta-grid">
+      <a class="cta-card" href="/register"><strong>Events</strong><span>Pick up to {{ c.rules.max_technical + c.rules.max_non_technical }} events. One form, instant registration ID.</span></a>
+      <a class="cta-card" href="/hackathon/register"><strong>{{ c.hackathon.name }}</strong><span>Register a team of {{ c.rules.hackathon_team_min }}–{{ c.rules.hackathon_team_max }} and upload your abstract.</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="sponsors" class="section">
+  <div class="wrap">
+    <h2 class="section-title">Sponsors</h2>
+    {% if c.sponsors %}
+      <ul class="sponsors">
+        {% for s in c.sponsors %}<li>{% if s.url %}<a href="{{ s.url }}" rel="noopener">{{ s.name }}</a>{% else %}{{ s.name }}{% endif %}</li>{% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">To be announced. Interested in sponsoring? Write to <a href="mailto:{{ e.contact_email }}">{{ e.contact_email }}</a>.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ c.edition.title }} · {{ c.edition.tagline }}{% endblock %}</title>
+  <meta name="description" content="{{ c.edition.title }}: the national technical symposium of {{ c.edition.institution }}, {{ c.edition.city }}.">
+  <meta name="theme-color" content="#050805">
+  <link rel="icon" href="{{ url_for('static', path='img/favicon.svg') }}" type="image/svg+xml">
+  <link rel="preload" href="{{ url_for('static', path='fonts/exo2-regular.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ url_for('static', path='css/site.css') }}">
+  <script src="{{ url_for('static', path='js/site.js') }}" defer></script>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap bar">
+      <a href="/" class="brand" aria-label="{{ c.edition.title }} home">
+        <span class="syn">SYN</span><span class="sara">SARA</span><span class="yr">{{ c.edition.year_label }}</span>
+      </a>
+      <button class="menu" type="button" aria-expanded="false" aria-controls="nav" data-menu>Menu</button>
+      <nav id="nav" aria-label="Main">
+        <a href="/#about">About</a>
+        <a href="/#events">Events</a>
+        <a href="/hackathon">Hackathon</a>
+        <a href="/#sponsors">Sponsors</a>
+        <a href="/register" class="btn small">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    {% if flash %}<div class="wrap"><p class="flash {{ flash.kind }}" role="status">{{ flash.message }}</p></div>{% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="wrap foot">
+      <div>
+        <p class="brand small"><span class="syn">SYN</span><span class="sara">SARA</span><span class="yr">{{ c.edition.year_label }}</span></p>
+        <p class="muted">{{ c.edition.host }}, {{ c.edition.institution }}, {{ c.edition.city }}.</p>
+      </div>
+      <p class="muted">
+        Questions? <a href="mailto:{{ c.edition.contact_email }}">{{ c.edition.contact_email }}</a><br>
+        <a href="/admin">Organiser login</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

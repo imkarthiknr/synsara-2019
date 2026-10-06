@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body_class %}admin{% endblock %}
+{% block content %}
+<div class="wrap page admin-page">
+  <nav class="admin-nav" aria-label="Organiser">
+    <a href="/admin" {% if active == 'dash' %}aria-current="page"{% endif %}>Dashboard</a>
+    <a href="/admin/participants" {% if active == 'participants' %}aria-current="page"{% endif %}>Participants</a>
+    <a href="/admin/teams" {% if active == 'teams' %}aria-current="page"{% endif %}>Hackathon teams</a>
+    <form method="post" action="/admin/logout" class="inline"><input type="hidden" name="csrf" value="{{ csrf }}"><button class="linkish" type="submit">Log out</button></form>
+  </nav>
+  {% block admin %}{% endblock %}
+</div>
+{% endblock %}

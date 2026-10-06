@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}You're registered · {{ c.edition.title }}{% endblock %}
+{% block content %}
+<div class="wrap page narrow center">
+  <div class="done">
+    <p class="kicker" data-scramble="GREAT!">GREAT!</p>
+    <h1>We look forward to welcoming you, {{ participant.name.split(' ')[0] }}.</h1>
+    <p class="reg-id">Your registration ID <strong class="mono">{{ participant.code }}</strong></p>
+    <div class="panel left">
+      <h2>Your events</h2>
+      <ul class="ticks">
+        {% for ev in events %}<li><a href="/events/{{ ev.slug }}">{{ ev.name }}</a> <span class="muted">· {{ ev.team }}</span></li>{% endfor %}
+      </ul>
+      <p class="muted">Bring your college ID card and this registration ID to the venue on
+        {{ c.edition.starts_on.strftime('%-d') }}–{{ c.edition.ends_on.strftime('%-d %B %Y') }}.</p>
+    </div>
+    <a class="btn ghost" href="/">Back to the main page</a>
+  </div>
+</div>
+{% endblock %}

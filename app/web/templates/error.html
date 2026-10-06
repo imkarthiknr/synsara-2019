@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ status }} · {{ c.edition.title }}{% endblock %}
+{% block content %}
+<div class="wrap page narrow center">
+  <p class="code">{{ status }}</p>
+  {% if status == 404 %}
+    <h1>Page not found</h1>
+    <p class="lead">Sorry, the page you were looking for doesn't exist.</p>
+  {% elif status == 400 %}
+    <h1>Something went wrong</h1>
+    <p class="lead">{{ detail if detail and detail != 'Bad Request' else 'The request was not valid.' }}</p>
+  {% else %}
+    <h1>Something went wrong</h1>
+    <p class="lead">Please try again.</p>
+  {% endif %}
+  <a class="btn ghost" href="/">Back to the main page</a>
+</div>
+{% endblock %}

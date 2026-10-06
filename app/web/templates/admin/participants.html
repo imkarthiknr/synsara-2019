@@ -1,0 +1,44 @@
+{% extends "admin/layout.html" %}
+{% set active = 'participants' %}
+{% block title %}Participants · {{ c.edition.title }}{% endblock %}
+{% block admin %}
+<div class="admin-head">
+  <h1>Participants <span class="muted">({{ rows | length }})</span></h1>
+  {% if event %}<a class="btn ghost" href="/admin/export/{{ event }}.xlsx">Download this event (.xlsx)</a>{% endif %}
+</div>
+<form class="filters" method="get" action="/admin/participants" role="search">
+  <label class="sr" for="q">Search</label>
+  <input id="q" name="q" value="{{ q }}" placeholder="Search name, e-mail, college or mobile">
+  <label class="sr" for="event">Event</label>
+  <select id="event" name="event">
+    <option value="">All events</option>
+    {% for ev in events %}<option value="{{ ev.slug }}" {% if ev.slug == event %}selected{% endif %}>{{ ev.name }}</option>{% endfor %}
+  </select>
+  <button class="btn small" type="submit">Filter</button>
+</form>
+<div class="panel table-wrap">
+  <table class="table">
+    <thead><tr><th>ID</th><th>Name</th><th>College</th><th>Dept · Yr</th><th>Contact</th><th>Events</th><th></th></tr></thead>
+    <tbody>
+    {% for p in rows %}
+      <tr>
+        <td class="mono">{{ p.code }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.college }}</td>
+        <td>{{ p.department }} · {{ p.year }}</td>
+        <td><a href="mailto:{{ p.email }}">{{ p.email }}</a><br><span class="mono muted">{{ p.mobile }}</span></td>
+        <td>{% for e in p.entries %}<span class="chip">{{ (c.event(e.event_slug).name if c.event(e.event_slug) else e.event_slug) }}</span>{% endfor %}</td>
+        <td>
+          <form method="post" action="/admin/participants/{{ p.id }}/delete" data-confirm="Delete {{ p.code }} ({{ p.name }})?">
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+            <button class="linkish danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="7" class="muted empty">No participants match.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

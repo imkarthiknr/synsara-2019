@@ -1,0 +1,169 @@
+# SYNSARA 2K19 edition content.
+#
+# Everything the public site shows comes from this file: change it (or point
+# SYNSARA_CONTENT at another file) to run a different edition without touching code.
+# Event `slug`s are stored with registrations, so don't rename them once
+# registrations are open.
+
+edition:
+  name: SYNSARA
+  year_label: 2K19
+  tagline: Innovate. Compete. Rejoice.
+  host: Department of Computer Science and Engineering
+  institution: Sri Sairam Engineering College
+  city: Chennai
+  venue_url: https://sairam.edu.in/
+  starts_on: 2019-09-19
+  ends_on: 2019-09-20
+  prize_pool_inr: 100000
+  expected_participants: 650
+  contact_email: synsara@example.org
+  about: >-
+    SYNSARA is the national technical symposium of Sri Sairam Engineering College,
+    organised by the Department of Computer Science and Engineering. Students from
+    every discipline come together for two days of coding contests, research
+    presentations, design and business challenges, a hackathon and a few
+    non-technical surprises along the way.
+
+rules:
+  max_technical: 2
+  max_non_technical: 2
+  hackathon_is_exclusive: true
+  hackathon_team_min: 3
+  hackathon_team_max: 5
+
+events:
+  - slug: code-fest
+    name: Code Fest
+    category: technical
+    logo: events/code.webp
+    teaser: Algorithms, data structures and a clock that never stops.
+    team: 1–2 per team
+    description: >-
+      A two-round programming contest. The preliminary round is a timed set of
+      output-prediction and debugging questions in C, C++ or Java; the top teams
+      move on to a hands-on round of algorithmic problems judged on correctness
+      and efficiency.
+    rounds:
+      - "Prelims: 20 questions in 20 minutes (output prediction and debugging)."
+      - "Finals: 4 problems in 90 minutes, scored on test cases passed and time taken."
+    rules:
+      - Use C, C++, Java or Python in the finals.
+      - Any malpractice leads to immediate disqualification.
+      - The judges' decision is final.
+
+  - slug: code-relay
+    name: Code Relay
+    category: technical
+    logo: events/code.webp
+    teaser: One problem, one keyboard, and teammates who take turns.
+    team: 2–3 per team
+    description: >-
+      A relay-style coding event. Team members take turns at the keyboard in fixed
+      time slots and cannot talk to each other during a hand-over, so the code has to
+      speak for itself: readable code and clear comments win races.
+    rounds:
+      - "Prelims: a pen-and-paper round on programming fundamentals."
+      - "Finals: the relay, with a hand-over every 10 minutes."
+    rules:
+      - No communication between members while the relay is running.
+      - Each member must code at least one slot.
+
+  - slug: paper-presentation
+    name: Paper Presentation
+    category: technical
+    logo: null
+    teaser: Put your research on paper and defend it before a faculty panel.
+    team: Up to 3 authors
+    description: >-
+      Present novel, non-trivial ideas or research in any computer science domain
+      and get feedback from an experienced faculty panel.
+    rules:
+      - Only student authors; a maximum of three per paper. Authors may be from different institutions.
+      - Only original work that has not been presented or published elsewhere.
+      - Two-column IEEE format, at most 6 pages, as PDF or DOCX.
+      - Plagiarism leads to disqualification.
+
+  - slug: inovate
+    name: INovate
+    category: technical
+    logo: events/inovate.webp
+    teaser: Pitch a tech business plan to a panel of judges.
+    team: 2–3 per team
+    description: >-
+      A business-plan challenge for technology ideas. Teams pitch a product, its
+      market and a plan to build it, then face questions from the judges on
+      feasibility, revenue model and impact.
+    rounds:
+      - "Round 1: a 5-minute pitch with up to 6 slides."
+      - "Round 2: shortlisted teams defend their plan in a Q&A with the panel."
+    rules:
+      - The idea must have a technology component.
+      - Bring your slides on a USB drive as PDF or PPTX.
+
+  - slug: cric-bizz
+    name: Cric Bizz
+    category: non_technical
+    logo: events/cric-bizz.webp
+    teaser: Run a cricket franchise auction with a fixed purse.
+    team: 2–3 per team
+    description: >-
+      An IPL-style auction game. Each team gets a virtual purse and bids for players
+      to build the strongest squad within the rules. Strategy matters more than
+      cricket trivia, though trivia helps.
+    rules:
+      - Squads must meet the role and overseas-player limits announced on the day.
+      - Overspending the purse disqualifies the team.
+
+  - slug: shutter-snap
+    name: Shutter Snap
+    category: non_technical
+    logo: events/shutter-snap.webp
+    teaser: An online photography contest around a theme.
+    team: Individual
+    description: >-
+      Send in photographs on the announced theme. Entries are judged on composition,
+      creativity and how well they capture the theme.
+    rules:
+      - Photos must be your own and taken during the contest window.
+      - Light edits are fine; heavily manipulated images are not accepted.
+
+  - slug: blitz-brigade
+    name: Blitz Brigade
+    category: non_technical
+    logo: events/blitz-brigade.webp
+    teaser: A surprise event, revealed on the day.
+    team: 2–3 per team
+    description: >-
+      The surprise event of SYNSARA. The format is revealed at the venue: expect
+      quick-fire rounds that reward quick thinking over preparation.
+    rules:
+      - Details are announced at the venue.
+
+hackathon:
+  slug: hack-una-matata
+  name: HACK-una-Matata
+  logo: events/hack-una-matata.webp
+  teaser: A team hackathon on real-world problems.
+  description: >-
+    Build anything: a mobile app, a web platform or a hardware hack with Arduino or
+    Raspberry Pi. Register your team, submit an abstract of your idea, and
+    shortlisted teams build it at SYNSARA.
+  abstract_template: downloads/hack-una-matata-abstract-template.docx
+  faqs:
+    - q: What is a hackathon?
+      a: An event where teams design and build a working prototype in a fixed time.
+    - q: Who can apply?
+      a: Any undergraduate student, from any college or department.
+    - q: Can we participate in other SYNSARA events too?
+      a: No. Hackathon participants focus on the hackathon only.
+    - q: How do we get shortlisted?
+      a: Register your team and upload an abstract using the template. Shortlisted teams are contacted by e-mail.
+    - q: What should we bring?
+      a: Laptops, chargers and any hardware your idea needs. We provide power, internet and food.
+
+workshop:
+  name: Workshop
+  teaser: A hands-on technical workshop. Details to be announced.
+
+sponsors: []

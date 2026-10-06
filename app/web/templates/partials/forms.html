@@ -1,0 +1,31 @@
+{% macro field(name, label, values, errors, type="text", hint=None, attrs="") -%}
+<div class="field{% if errors[name] %} invalid{% endif %}">
+  <label for="{{ name }}">{{ label }}</label>
+  <input id="{{ name }}" name="{{ name }}" type="{{ type }}" value="{{ values.get(name, '') }}" {{ attrs | safe }}
+    {% if errors[name] %}aria-invalid="true" aria-describedby="{{ name }}-error"{% elif hint %}aria-describedby="{{ name }}-hint"{% endif %}>
+  {% if errors[name] %}<p class="error" id="{{ name }}-error">{{ errors[name] }}</p>
+  {% elif hint %}<p class="hint" id="{{ name }}-hint">{{ hint }}</p>{% endif %}
+</div>
+{%- endmacro %}
+
+{% macro select(name, label, options, values, errors, placeholder="Choose…") -%}
+<div class="field{% if errors[name] %} invalid{% endif %}">
+  <label for="{{ name }}">{{ label }}</label>
+  <select id="{{ name }}" name="{{ name }}" required {% if errors[name] %}aria-invalid="true" aria-describedby="{{ name }}-error"{% endif %}>
+    <option value="">{{ placeholder }}</option>
+    {% for value, text in options %}
+      <option value="{{ value }}" {% if values.get(name, '') | string == value | string %}selected{% endif %}>{{ text }}</option>
+    {% endfor %}
+  </select>
+  {% if errors[name] %}<p class="error" id="{{ name }}-error">{{ errors[name] }}</p>{% endif %}
+</div>
+{%- endmacro %}
+
+{% macro form_errors(errors) -%}
+{% if errors %}
+<div class="alert" role="alert">
+  <strong>Please fix the highlighted fields.</strong>
+  {% if errors.form %}<p>{{ errors.form }}</p>{% endif %}
+</div>
+{% endif %}
+{%- endmacro %}

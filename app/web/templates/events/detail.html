@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ event.name }} · {{ c.edition.title }}{% endblock %}
+{% block content %}
+<article class="wrap page event-detail">
+  <a href="/#events" class="back">← All events</a>
+  <header class="event-head">
+    {% if event.logo %}<img src="{{ url_for('static', path='img/' ~ event.logo) }}" alt="{{ event.name }} logo" width="140" height="140">
+    {% else %}<span class="glyph big" aria-hidden="true">{{ event.name[:1] }}</span>{% endif %}
+    <div>
+      <p class="tag">{{ 'Technical' if event.category.value == 'technical' else 'Non-technical' }} · {{ event.team }}</p>
+      <h1>{{ event.name }}</h1>
+      <p class="lead">{{ event.teaser }}</p>
+    </div>
+  </header>
+  <div class="panel">
+    <p>{{ event.description }}</p>
+    {% if event.rounds %}<h2>Rounds</h2><ul class="ticks">{% for r in event.rounds %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
+    {% if event.rules %}<h2>Rules</h2><ul class="ticks">{% for r in event.rules %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
+    <p class="muted">Questions about {{ event.name }}? Write to <a href="mailto:{{ c.edition.contact_email }}?subject={{ event.name | urlencode }}">{{ c.edition.contact_email }}</a>.</p>
+  </div>
+  <a class="btn" href="/register?event={{ event.slug }}">Register for {{ event.name }}</a>
+</article>
+{% endblock %}

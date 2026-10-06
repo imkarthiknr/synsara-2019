@@ -1,0 +1,35 @@
+{% extends "admin/layout.html" %}
+{% set active = 'teams' %}
+{% block title %}{{ team.team_name }} · {{ c.hackathon.name }}{% endblock %}
+{% block admin %}
+<a class="back" href="/admin/teams">← All teams</a>
+<div class="admin-head"><h1>{{ team.team_name }} <span class="mono muted">{{ team.code }}</span></h1>
+  <a class="btn" href="/admin/teams/{{ team.id }}/abstract">Download abstract</a></div>
+<div class="two-col">
+  <section class="panel">
+    <h2>Project</h2>
+    <dl class="kv">
+      <div><dt>Title</dt><dd>{{ team.project_title }}</dd></div>
+      <div><dt>Domain</dt><dd>{{ team.domain }}</dd></div>
+      <div><dt>Abstract</dt><dd>{{ team.abstract_filename }}</dd></div>
+      <div><dt>Technical help</dt><dd>{{ 'Yes' if team.needs_technical_help else 'No' }}</dd></div>
+      <div><dt>Accommodation</dt><dd>{{ 'Yes' if team.needs_accommodation else 'No' }}</dd></div>
+      <div><dt>Heard from</dt><dd>{{ team.heard_from }}</dd></div>
+    </dl>
+  </section>
+  <section class="panel">
+    <h2>People</h2>
+    <dl class="kv">
+      <div><dt>Leader</dt><dd>{{ team.leader_name }}</dd></div>
+      <div><dt>College</dt><dd>{{ team.college }} · {{ team.department }} · Year {{ team.year }}</dd></div>
+      <div><dt>E-mail</dt><dd><a href="mailto:{{ team.email }}">{{ team.email }}</a></dd></div>
+      <div><dt>Mobile</dt><dd class="mono">{{ team.mobile }}</dd></div>
+      <div><dt>Members</dt><dd>{% for m in team.members %}{{ m.name }}{% if not loop.last %}, {% endif %}{% endfor %}</dd></div>
+    </dl>
+  </section>
+</div>
+<form method="post" action="/admin/teams/{{ team.id }}/delete" data-confirm="Delete team {{ team.team_name }} and its abstract?">
+  <input type="hidden" name="csrf" value="{{ csrf }}">
+  <button class="btn danger" type="submit">Delete team</button>
+</form>
+{% endblock %}

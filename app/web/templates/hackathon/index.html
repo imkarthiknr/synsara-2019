@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{{ c.hackathon.name }} · {{ c.edition.title }}{% endblock %}
+{% block body_class %}hack{% endblock %}
+{% block content %}
+{% set h = c.hackathon %}
+<section class="hero small" aria-labelledby="hack-title">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="wrap hack-hero">
+    {% if h.logo %}<img src="{{ url_for('static', path='img/' ~ h.logo) }}" alt="" width="220" height="220">{% endif %}
+    <div>
+      <p class="kicker" data-scramble="{{ c.edition.title | upper }} PRESENTS">{{ c.edition.title | upper }} PRESENTS</p>
+      <h1 id="hack-title">{{ h.name }}</h1>
+      <p class="lead">{{ h.teaser }}</p>
+      <p class="when">{{ c.edition.starts_on.strftime('%-d') }}–{{ c.edition.ends_on.strftime('%-d %B %Y') }} · {{ c.edition.institution }}, {{ c.edition.city }}</p>
+      <div class="actions">
+        <a class="btn" href="/hackathon/register">Register your team</a>
+        {% if h.abstract_template %}<a class="btn ghost" href="{{ url_for('static', path=h.abstract_template) }}" download>Abstract template (.docx)</a>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap two-col">
+    <div>
+      <h2 class="section-title">About</h2>
+      <p class="lead">{{ h.description }}</p>
+      <h3>How it works</h3>
+      <ol class="steps">
+        <li><strong>Register</strong> a team of {{ c.rules.hackathon_team_min }}–{{ c.rules.hackathon_team_max }} members.</li>
+        <li><strong>Upload your abstract</strong> using the template (PDF or DOCX).</li>
+        <li><strong>Get shortlisted</strong> and build your idea at {{ c.edition.title }}.</li>
+      </ol>
+    </div>
+    <div>
+      <h2 class="section-title">FAQ</h2>
+      <div class="faq">
+        {% for f in h.faqs %}
+          <details><summary>{{ f.q }}</summary><p>{{ f.a }}</p></details>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
